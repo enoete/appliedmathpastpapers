@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAPE Applied Math U2 · Module 3 · Particle Mechanics · CFBC</title>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f1d2e;
+  --navy2:#162436;
+  --teal:#00b8a2;
+  --teal2:#00d4bc;
+  --orange:#ff7043;
+  --gold:#f5c842;
+  --purple:#7c5cbf;
+  --green:#2ecc8e;
+  --red:#e05252;
+  --sky:#3aa8d8;
+  --txt:#e8edf4;
+  --txt2:#a8b8cc;
+  --card:#1c2e42;
+  --card2:#223348;
+  --border:#2a3f58;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--txt);min-height:100vh;font-size:16px;line-height:1.7}
+
+/* ── HEADER ── */
+.site-header{
+  background:linear-gradient(135deg,#0a1525 0%,#0f2a3d 50%,#0a2030 100%);
+  border-bottom:3px solid var(--teal);
+  padding:32px 24px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.site-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 120%,rgba(0,184,162,.15),transparent);
+  pointer-events:none;
+}
+.header-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.header-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,5vw,48px);font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.1;margin-bottom:6px}
+.header-title span{color:var(--teal)}
+.header-sub{color:var(--txt2);font-size:14px;margin-bottom:18px}
+.fs-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;background:rgba(0,184,162,.15);border:2px solid var(--teal);border-radius:6px;color:var(--teal);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.fs-btn:hover{background:rgba(0,184,162,.3);color:#fff}
+
+/* ── NAV ── */
+.topic-nav{position:sticky;top:0;z-index:200;background:var(--navy2);border-bottom:2px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none}
+.topic-nav::-webkit-scrollbar{display:none}
+.tnav-btn{flex-shrink:0;padding:13px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.8px;text-transform:uppercase;color:var(--txt2);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.tnav-btn:hover{color:var(--teal)}
+.tnav-btn.active{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* ── MAIN ── */
+main{max-width:900px;margin:0 auto;padding:28px 20px 80px}
+.section{display:none}.section.active{display:block}
+.sec-heading{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:#fff;border-left:4px solid var(--teal);padding-left:14px;margin-bottom:4px;letter-spacing:.3px}
+.sec-desc{color:var(--txt2);font-size:13px;margin-bottom:24px;padding-left:18px}
+
+/* ── QUESTION CARDS ── */
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px 18px;margin-bottom:18px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(0,184,162,.4)}
+.q-label{display:inline-block;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:12px}
+.lA{background:var(--teal)}
+.lB{background:var(--orange)}
+.lC{background:var(--purple)}
+.lD{background:var(--sky)}
+.lE{background:var(--green)}
+.lF{background:var(--gold);color:#1a1a1a!important}
+.lG{background:var(--red)}
+.q-text{color:var(--txt);font-size:15.5px;line-height:1.8;margin-bottom:16px}
+.q-text strong{color:var(--teal)}
+.q-parts{margin:10px 0 14px 22px}
+.q-parts li{margin-bottom:6px;list-style:lower-roman;color:var(--txt2)}
+.q-parts li strong{color:var(--txt)}
+
+/* ── BUTTONS ── */
+.btn-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-hint{background:rgba(245,200,66,.12);color:var(--gold);border:1.5px solid rgba(245,200,66,.4)}
+.btn-hint:hover{background:rgba(245,200,66,.22);box-shadow:0 4px 14px rgba(245,200,66,.2)}
+.btn-steps{background:rgba(58,168,216,.12);color:var(--sky);border:1.5px solid rgba(58,168,216,.4)}
+.btn-steps:hover{background:rgba(58,168,216,.22);box-shadow:0 4px 14px rgba(58,168,216,.2)}
+.btn-ans{background:rgba(46,204,142,.12);color:var(--green);border:1.5px solid rgba(46,204,142,.4)}
+.btn-ans:hover{background:rgba(46,204,142,.22);box-shadow:0 4px 14px rgba(46,204,142,.2)}
+
+/* ── PANELS ── */
+.panel{display:none;margin-top:14px;border-radius:10px;overflow:hidden;animation:fadeIn .2s ease}
+.panel.open{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.p-hint{background:rgba(245,200,66,.06);border:1.5px solid rgba(245,200,66,.25)}
+.p-hint .p-head{background:rgba(245,200,66,.14);color:var(--gold)}
+.p-steps{background:rgba(58,168,216,.06);border:1.5px solid rgba(58,168,216,.25)}
+.p-steps .p-head{background:rgba(58,168,216,.14);color:var(--sky)}
+.p-ans{background:rgba(46,204,142,.06);border:1.5px solid rgba(46,204,142,.25)}
+.p-ans .p-head{background:rgba(46,204,142,.14);color:var(--green)}
+.p-head{display:flex;align-items:center;gap:8px;padding:10px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06)}
+.hstep{padding:11px 18px;border-bottom:1px solid rgba(255,255,255,.05);font-size:15px;color:var(--txt)}
+.hstep:last-child{border-bottom:none}
+.slabel{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt2);margin-bottom:3px}
+.abox{padding:14px 18px;font-size:15px;color:var(--txt)}
+.afinal{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--green);margin-top:8px;padding:10px 14px;background:rgba(46,204,142,.1);border:1.5px solid rgba(46,204,142,.3);border-radius:6px;display:inline-block;max-width:100%;overflow-x:auto;font-size:16px}
+
+/* ── FORMULA MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.overlay.open{display:flex}
+.modal{background:var(--navy2);border:2px solid var(--border);border-radius:16px;max-width:860px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden}
+.modal-hdr{background:linear-gradient(90deg,var(--teal),#007a6e);padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.modal-hdr h2{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:.5px;color:#fff}
+.modal-close{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.5);color:#fff;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:rgba(255,255,255,.3)}
+.modal-tabs{display:flex;border-bottom:2px solid var(--border);background:rgba(255,255,255,.03);flex-shrink:0;overflow-x:auto}
+.mtab{padding:11px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.8px;text-transform:uppercase;color:var(--txt2);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap}
+.mtab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.modal-body{overflow-y:auto;padding:20px 24px 28px;flex:1}
+.ftab{display:none}.ftab.active{display:block}
+.fsec{margin-bottom:22px}
+.fsec h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--teal);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.frow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.fchip{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 14px;font-size:14px;color:var(--txt);flex:1;min-width:220px;overflow-x:auto;line-height:1.6}
+
+footer{text-align:center;padding:20px;color:var(--txt2);font-size:13px;border-top:1px solid var(--border);background:var(--navy2);margin-top:40px}
+@media(max-width:600px){.q-card{padding:15px 12px}main{padding:18px 12px 60px}.btn{font-size:12px;padding:7px 12px}}
+</style>
+</head>
+<body>
+
+<!-- ══ FORMULA MODAL ══ -->
+<div class="overlay" id="fsModal">
+<div class="modal">
+  <div class="modal-hdr">
+    <h2>⚙️ Mechanics Formula Sheet — CAPE Applied Math U2 · Module 3</h2>
+    <button class="modal-close" onclick="closeFSModal()">✕</button>
+  </div>
+  <div class="modal-tabs">
+    <button class="mtab active" onclick="switchMTab(this,'ft-kin')">Kinematics</button>
+    <button class="mtab" onclick="switchMTab(this,'ft-proj')">Projectiles</button>
+    <button class="mtab" onclick="switchMTab(this,'ft-forces')">Forces</button>
+    <button class="mtab" onclick="switchMTab(this,'ft-wep')">Work / Energy / Power</button>
+    <button class="mtab" onclick="switchMTab(this,'ft-mom')">Momentum &amp; Impulse</button>
+  </div>
+  <div class="modal-body">
+
+    <div class="ftab active" id="ft-kin">
+      <div class="fsec"><h3>SUVAT — Equations of Uniform Acceleration</h3>
+        <div class="frow"><div class="fchip">$v = u + at$</div><div class="fchip">$s = \tfrac{1}{2}(u+v)t$</div></div>
+        <div class="frow"><div class="fchip">$s = ut + \tfrac{1}{2}at^2$</div><div class="fchip">$v^2 = u^2 + 2as$</div></div>
+        <div class="frow"><div class="fchip">$s = vt - \tfrac{1}{2}at^2$</div></div>
+      </div>
+      <div class="fsec"><h3>Calculus Relationships</h3>
+        <div class="frow"><div class="fchip">$v = \dfrac{dx}{dt} = \dot{x}$</div><div class="fchip">$a = \dfrac{dv}{dt} = v\dfrac{dv}{dx} = \ddot{x}$</div></div>
+      </div>
+      <div class="fsec"><h3>Velocity–Time Graph Areas</h3>
+        <div class="frow"><div class="fchip">Area under $v$-$t$ graph $=$ displacement</div><div class="fchip">Gradient of $v$-$t$ graph $=$ acceleration</div></div>
+      </div>
+    </div>
+
+    <div class="ftab" id="ft-proj">
+      <div class="fsec"><h3>Resolving Initial Velocity (angle $\theta$, speed $V$)</h3>
+        <div class="frow"><div class="fchip">Horizontal: $u_x = V\cos\theta$ (constant)</div><div class="fchip">Vertical: $u_y = V\sin\theta$</div></div>
+      </div>
+      <div class="fsec"><h3>Position at Time $t$</h3>
+        <div class="frow"><div class="fchip">$x = Vt\cos\theta$</div><div class="fchip">$y = Vt\sin\theta - \tfrac{1}{2}gt^2$</div></div>
+      </div>
+      <div class="fsec"><h3>Key Quantities</h3>
+        <div class="frow"><div class="fchip">Time of flight: $T = \dfrac{2V\sin\theta}{g}$</div></div>
+        <div class="frow"><div class="fchip">Greatest height: $H = \dfrac{V^2\sin^2\theta}{2g}$</div></div>
+        <div class="frow"><div class="fchip">Horizontal range: $R = \dfrac{V^2\sin2\theta}{g}$</div></div>
+        <div class="frow"><div class="fchip">Maximum range $= \dfrac{V^2}{g}$ (when $\theta=45°$)</div></div>
+      </div>
+      <div class="fsec"><h3>Trajectory Equation</h3>
+        <div class="frow"><div class="fchip">$y = x\tan\theta - \dfrac{gx^2}{2V^2\cos^2\theta} = x\tan\theta - \dfrac{gx^2}{2V^2}(1+\tan^2\theta)$</div></div>
+      </div>
+    </div>
+
+    <div class="ftab" id="ft-forces">
+      <div class="fsec"><h3>Newton's Laws</h3>
+        <div class="frow"><div class="fchip"><strong>1st:</strong> Body remains at rest or uniform velocity unless acted on by a net force</div></div>
+        <div class="frow"><div class="fchip"><strong>2nd:</strong> $F = ma$ (net force = mass × acceleration)</div></div>
+        <div class="frow"><div class="fchip"><strong>3rd:</strong> Every action has an equal and opposite reaction</div></div>
+      </div>
+      <div class="fsec"><h3>Friction</h3>
+        <div class="frow"><div class="fchip">$F \leq \mu R$ (limiting: $F = \mu R$)</div><div class="fchip">$\mu$ = coefficient of friction</div></div>
+        <div class="frow"><div class="fchip">On inclined plane: $R = mg\cos\theta$, $F = \mu mg\cos\theta$</div></div>
+      </div>
+      <div class="fsec"><h3>Resolving Forces</h3>
+        <div class="frow"><div class="fchip">Equilibrium: $\sum F_x = 0$, $\sum F_y = 0$</div></div>
+        <div class="frow"><div class="fchip">Incline (up +ve): Along plane: $F - mg\sin\theta - \text{friction} = ma$</div></div>
+        <div class="frow"><div class="fchip">Perpendicular to incline: $R = mg\cos\theta$</div></div>
+      </div>
+      <div class="fsec"><h3>Lami's Theorem (3 concurrent forces in equilibrium)</h3>
+        <div class="frow"><div class="fchip">$\dfrac{F_1}{\sin\alpha} = \dfrac{F_2}{\sin\beta} = \dfrac{F_3}{\sin\gamma}$ where $\alpha,\beta,\gamma$ are angles <em>opposite</em> to $F_1,F_2,F_3$</div></div>
+      </div>
+      <div class="fsec"><h3>Moments (Rod / Beam problems)</h3>
+        <div class="frow"><div class="fchip">Moment = Force × perpendicular distance</div><div class="fchip">Equilibrium: $\sum$ Moments about any point $= 0$</div></div>
+      </div>
+    </div>
+
+    <div class="ftab" id="ft-wep">
+      <div class="fsec"><h3>Work</h3>
+        <div class="frow"><div class="fchip">$W = Fd\cos\theta$ (constant force)</div><div class="fchip">Work done against gravity $= mgh$</div></div>
+      </div>
+      <div class="fsec"><h3>Energy</h3>
+        <div class="frow"><div class="fchip">Kinetic Energy: $KE = \tfrac{1}{2}mv^2$</div><div class="fchip">Gravitational PE: $GPE = mgh$</div></div>
+        <div class="frow"><div class="fchip">Work-Energy Theorem: $W_{net} = \Delta KE$</div></div>
+        <div class="frow"><div class="fchip">Conservation of Energy: $KE_1 + PE_1 = KE_2 + PE_2$ (no friction)</div></div>
+        <div class="frow"><div class="fchip">With friction: $KE_1 + PE_1 = KE_2 + PE_2 + W_{\text{friction}}$</div></div>
+      </div>
+      <div class="fsec"><h3>Power</h3>
+        <div class="frow"><div class="fchip">$P = Fv$ (force × velocity)</div><div class="fchip">$P = \dfrac{\text{Work done}}{\text{time}}$</div></div>
+        <div class="frow"><div class="fchip">1 Watt = 1 J/s; 1 kW = 1000 W</div></div>
+      </div>
+    </div>
+
+    <div class="ftab" id="ft-mom">
+      <div class="fsec"><h3>Momentum</h3>
+        <div class="frow"><div class="fchip">Momentum $p = mv$ (kg m s$^{-1}$)</div></div>
+        <div class="frow"><div class="fchip">Conservation: $m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2$</div></div>
+        <div class="frow"><div class="fchip">Perfectly inelastic (fuse): $(m_1+m_2)v = m_1u_1 + m_2u_2$</div></div>
+      </div>
+      <div class="fsec"><h3>Impulse</h3>
+        <div class="frow"><div class="fchip">Impulse $J = Ft = \Delta p = mv - mu$</div></div>
+        <div class="frow"><div class="fchip">Unit: N·s or kg m s$^{-1}$</div></div>
+        <div class="frow"><div class="fchip">For wall bounce (take +ve direction): $J = m(v-u)$ — take care with signs!</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-eyebrow">Clarence Fitzroy Bryant College · St. Kitts &amp; Nevis</div>
+  <h1 class="header-title">CAPE Applied Math U2 · <span>Module 3</span></h1>
+  <div class="header-sub">Particle Mechanics — Past Paper Questions with Full Solutions</div>
+  <button class="fs-btn" onclick="openFSModal()">⚙️ Formula Sheet</button>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav class="topic-nav">
+  <button class="tnav-btn active" onclick="switchSec(this,'s-forces')">⚖️ Forces &amp; Equilibrium</button>
+  <button class="tnav-btn" onclick="switchSec(this,'s-kin')">📐 Kinematics</button>
+  <button class="tnav-btn" onclick="switchSec(this,'s-newton')">🚗 Newton's Laws</button>
+  <button class="tnav-btn" onclick="switchSec(this,'s-proj')">🏹 Projectiles</button>
+  <button class="tnav-btn" onclick="switchSec(this,'s-wep')">⚡ Work, Energy &amp; Power</button>
+  <button class="tnav-btn" onclick="switchSec(this,'s-mom')">💥 Momentum &amp; Impulse</button>
+  <button class="tnav-btn" onclick="switchSec(this,'s-ode')">∫ Differential Equations</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+     1. FORCES & EQUILIBRIUM
+══════════════════════════════════════════ -->
+<div class="section active" id="s-forces">
+<div class="sec-heading">⚖️ Coplanar Forces &amp; Equilibrium</div>
+<div class="sec-desc">Resolving forces · Resultants · Lami's Theorem · Friction · Moments · Rod &amp; beam problems</div>
+
+<!-- F1 -->
+<div class="q-card">
+  <span class="q-label lA">F1</span>
+  <div class="q-text">Three coplanar forces of magnitude <strong>500 N</strong>, <strong>750 N</strong> and <strong>1200 N</strong> act at a point. The 500 N force acts vertically downward, the 750 N force acts horizontally to the right, and the 1200 N force acts at <strong>40°</strong> above the horizontal (to the upper left).
+    <ol class="q-parts">
+      <li>List Newton's laws of motion.</li>
+      <li>Determine the magnitude of the resultant $R$.</li>
+      <li>Determine the direction of $R$: find angle $\alpha$ to the horizontal.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Hint 1 — Newton's Laws</div>Three laws: (1) Inertia, (2) $F=ma$, (3) Action-reaction. Write them out in full.</div>
+    <div class="hstep"><div class="slabel">Hint 2 — Resolve horizontally and vertically</div>Resolve each force into $x$ (horizontal) and $y$ (vertical) components. Sum them: $R_x = \sum F_x$, $R_y = \sum F_y$.</div>
+    <div class="hstep"><div class="slabel">Hint 3 — Resultant magnitude &amp; direction</div>$R = \sqrt{R_x^2 + R_y^2}$, $\alpha = \tan^{-1}\!\left(\dfrac{|R_y|}{|R_x|}\right)$.</div>
+  </div>
+  <div class="panel p-steps" id="f1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Newton's Laws</div>
+      1st: A body remains at rest or moves with uniform velocity unless acted on by a resultant force.<br>
+      2nd: The resultant force on a body equals its mass times its acceleration ($F=ma$).<br>
+      3rd: For every action there is an equal and opposite reaction.
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Resolve components (take right = +x, up = +y)</div>
+      500 N (down): $F_x=0$, $F_y=-500$<br>
+      750 N (right): $F_x=+750$, $F_y=0$<br>
+      1200 N (upper-left at 40° to horizontal): $F_x=-1200\cos40°=-919.3$, $F_y=+1200\sin40°=+771.3$
+    </div>
+    <div class="hstep"><div class="slabel">Sum components</div>
+      $R_x = 750 - 919.3 = -169.3$ N<br>
+      $R_y = -500 + 771.3 = +271.3$ N
+    </div>
+    <div class="hstep"><div class="slabel">Magnitude</div>
+      $R = \sqrt{(-169.3)^2+(271.3)^2} = \sqrt{28662+73584} = \sqrt{102246} \approx 319.8$ N
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Direction</div>
+      $\tan\alpha = \dfrac{|R_y|}{|R_x|} = \dfrac{271.3}{169.3} = 1.602$<br>
+      $\alpha = \tan^{-1}(1.602) \approx 58.0°$<br>
+      Since $R_x < 0$ and $R_y > 0$: resultant is in the <strong>2nd quadrant</strong>, i.e. upper-left, at $58°$ above the horizontal (or $180°-58°=122°$ from +x-axis).
+    </div>
+  </div>
+  <div class="panel p-ans" id="f1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(ii) $R \approx \mathbf{319.8}$ N</div>
+      <div class="afinal">(iii) $\alpha \approx \mathbf{58.0°}$ above horizontal, directed upper-left (2nd quadrant)</div>
+    </div>
+  </div>
+</div>
+
+<!-- F2 -->
+<div class="q-card">
+  <span class="q-label lB">F2</span>
+  <div class="q-text">A uniform rod, PQ, weight <strong>40 N</strong>, is hinged at P and held horizontal by a string from Q to R, which is vertically above the hinge. The string is inclined at <strong>45°</strong> to the rod. Let $T$ = tension in the string.
+    <ol class="q-parts">
+      <li>Draw the coplanar force diagram.</li>
+      <li>Calculate the tension $T$ in the string.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f2h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f2s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Forces on rod</div>Three forces: hinge reaction at P (unknown), weight 40 N downward at midpoint (uniform rod), tension $T$ at Q at 45° to rod.</div>
+    <div class="hstep"><div class="slabel">Taking moments about P</div>Taking moments about P eliminates the hinge reaction. Moment of $T$ about P = $T\sin45° \times L$. Moment of weight = $40 \times \frac{L}{2}$. Set equal.</div>
+  </div>
+  <div class="panel p-steps" id="f2s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Setup</div>Let rod PQ have length $L$. Weight acts at midpoint ($L/2$ from P). String at Q makes 45° with rod, so upward component of tension = $T\sin45°$.</div>
+    <div class="hstep"><div class="slabel">Moments about P (clockwise +ve)</div>
+      Clockwise: weight $= 40 \times \dfrac{L}{2} = 20L$<br>
+      Anticlockwise: vertical component of $T$ at Q $= T\sin45° \times L$<br>
+      Equilibrium: $T\sin45° \times L = 20L$
+    </div>
+    <div class="hstep"><div class="slabel">Solve</div>
+      $T\sin45° = 20$<br>
+      $T \times \dfrac{\sqrt{2}}{2} = 20$<br>
+      $T = \dfrac{20\sqrt{2}}{1} = 20\sqrt{2} \approx 28.28$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="f2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">$T = 20\sqrt{2} \approx \mathbf{28.3}$ N</div>
+    </div>
+  </div>
+</div>
+
+<!-- F3 -->
+<div class="q-card">
+  <span class="q-label lC">F3</span>
+  <div class="q-text">A ring X is on a fixed pole AB inclined at <strong>40°</strong> to the horizontal. A string over a smooth pulley P is attached to the ring at one end and to an object Y of mass <strong>15 kg</strong> at the other. The coefficient of friction between ring and pole is <strong>0.3</strong>; the ring is just about to slip <em>up</em> the pole.
+    <ol class="q-parts">
+      <li>Label the diagram showing forces on the ring.</li>
+      <li>State one condition for the ring to be in equilibrium.</li>
+      <li>Determine the mass of the ring.</li>
+      <li>Determine the normal reaction of the rod on the ring.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f3h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f3s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f3a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f3h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Forces on ring</div>4 forces: weight $mg$ downward, tension $T=15g$ along string (horizontal, toward pulley P), normal reaction $N$ perpendicular to pole, friction $F$ along pole (down the pole, since about to slip UP).</div>
+    <div class="hstep"><div class="slabel">Limiting friction</div>Since about to slip: $F = \mu N = 0.3N$, directed down the slope.</div>
+    <div class="hstep"><div class="slabel">Resolve parallel and perpendicular to pole</div>Tension acts horizontally. Resolve into components along and perpendicular to the inclined pole.</div>
+  </div>
+  <div class="panel p-steps" id="f3s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Setup</div>
+      $T = 15g = 15 \times 9.8 = 147$ N (horizontal, as string goes to pulley P which is horizontal from ring).<br>
+      Pole inclined at 40° to horizontal. About to slip UP → friction acts DOWN the pole.
+    </div>
+    <div class="hstep"><div class="slabel">Resolve perpendicular to pole (outward +ve)</div>
+      $N = T\sin40° + mg\sin50°$<br>
+      Wait — let's use a cleaner approach. Take x-axis along pole (up +ve), y-axis perpendicular to pole (away from pole +ve).<br>
+      Tension horizontal: component along pole $= T\cos40°$ (up the pole), component perpendicular $= T\sin40°$ (away from pole).
+    </div>
+    <div class="hstep"><div class="slabel">Perpendicular to pole</div>
+      $N = T\sin40° + mg\cos40°$<br>
+      But wait: weight $mg$ acts downward. Component of weight perpendicular to pole (into pole) $= mg\cos(90°-40°) = mg\sin40°$... Let's be careful:<br>
+      Pole at 40° to horizontal. Weight is vertical. Component of weight <em>perpendicular to pole</em> (towards pole) $= mg\sin40°$ (since angle between weight and the perpendicular-to-pole direction is $90°-40°=50°$... actually: angle between weight vertical and pole direction is $90°-40°=50°$, so perp component $= mg\sin(50°) = mg\cos40°$).<br>
+      Simpler: Perpendicular to pole: $N - T\sin40° - mg\cos40° = 0$, so $N = T\sin40° + mg\cos40°$.
+    </div>
+    <div class="hstep"><div class="slabel">Along the pole (up +ve)</div>
+      $T\cos40° - mg\sin40° - F = 0$<br>
+      Limiting friction: $F = 0.3N$<br>
+      $T\cos40° - mg\sin40° - 0.3(T\sin40° + mg\cos40°) = 0$
+    </div>
+    <div class="hstep"><div class="slabel">Substitute $T=147$ N</div>
+      $147\cos40° - mg\sin40° - 0.3(147\sin40° + mg\cos40°) = 0$<br>
+      $147(0.766) - 0.3(147)(0.643) - mg\sin40° - 0.3mg\cos40° = 0$<br>
+      $112.6 - 28.4 - mg(0.643 + 0.3\times0.766) = 0$<br>
+      $84.2 = mg(0.643 + 0.230) = mg(0.873)$<br>
+      $mg = \dfrac{84.2}{0.873} = 96.4$ N<br>
+      $m = \dfrac{96.4}{9.8} \approx 9.84$ kg
+    </div>
+    <div class="hstep"><div class="slabel">Normal reaction</div>
+      $N = T\sin40° + mg\cos40° = 147(0.643) + 96.4(0.766) = 94.5 + 73.9 = 168.4$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="f3a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      (ii) Condition: net force on ring = 0 (vector sum of all forces is zero)<br>
+      <div class="afinal">(iii) Mass of ring $\approx \mathbf{9.84}$ kg</div>
+      <div class="afinal">(iv) Normal reaction $N \approx \mathbf{168.4}$ N</div>
+    </div>
+  </div>
+</div>
+
+<!-- F4 -->
+<div class="q-card">
+  <span class="q-label lD">F4</span>
+  <div class="q-text">A clock weighing <strong>40 N</strong> is suspended from a ceiling by a light inextensible string (vertical). A horizontal force of <strong>15 N</strong> acts on the clock. A second force $T$ at angle $\theta$ to the vertical holds the system in place with the first string remaining vertical.
+    <ol class="q-parts">
+      <li>Using Lami's Theorem, formulate an equation in terms of $T$ and $\theta$.</li>
+      <li>Determine the value of $\theta$.</li>
+      <li>Calculate the value of $T$.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f4h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f4s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f4a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f4h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Three concurrent forces</div>Three forces on clock: 40 N down, 15 N right, $T$ at angle $\theta$ to vertical (upper-left direction). Since in equilibrium, resolve horizontally and vertically.</div>
+    <div class="hstep"><div class="slabel">Lami's Theorem</div>$\dfrac{F_1}{\sin\alpha_1} = \dfrac{F_2}{\sin\alpha_2} = \dfrac{F_3}{\sin\alpha_3}$ where each $\alpha$ is the angle <em>opposite</em> (i.e., between) the other two forces.</div>
+    <div class="hstep"><div class="slabel">Alternative: simple resolve</div>Horizontal: $T\sin\theta = 15$. Vertical: $T\cos\theta = 40$. Divide to find $\theta$.</div>
+  </div>
+  <div class="panel p-steps" id="f4s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Lami's Theorem setup</div>
+      The three forces are: $W=40$ N (down), $H=15$ N (right), $T$ (upper-left at $\theta$ to vertical).<br>
+      Angles between forces: angle between $W$ and $H$ = 90°, so angle opposite $T$ = $90°+\theta$... More carefully:<br>
+      Angle between $W$ (down) and $H$ (right) = 90°, so opposite angle for $T$ = $360°-90°-(90°+\theta)$... Lami's works with angles <em>between</em> adjacent force vectors measured going around. The angle between W and T = $180°-\theta$; angle between T and H = $90°+\theta$; angle between H and W = $90°$... This can get complex.<br>
+      Simplest approach: Resolve directly.
+    </div>
+    <div class="hstep"><div class="slabel">Parts (ii) &amp; (iii) — Resolve</div>
+      $T$ acts upper-left at angle $\theta$ to vertical.<br>
+      Horizontal equilibrium: $T\sin\theta = 15$ ...(1)<br>
+      Vertical equilibrium: $T\cos\theta = 40$ ...(2)
+    </div>
+    <div class="hstep"><div class="slabel">Divide (1) by (2)</div>
+      $\tan\theta = \dfrac{15}{40} = 0.375$<br>
+      $\theta = \tan^{-1}(0.375) = 20.6°$
+    </div>
+    <div class="hstep"><div class="slabel">Find T</div>
+      From (2): $T = \dfrac{40}{\cos20.6°} = \dfrac{40}{0.9354} = 42.8$ N<br>
+      Or: $T = \sqrt{15^2 + 40^2} = \sqrt{225+1600} = \sqrt{1825} \approx 42.7$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="f4a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(ii) $\theta = \tan^{-1}(0.375) \approx \mathbf{20.6°}$</div>
+      <div class="afinal">(iii) $T = \sqrt{1825} \approx \mathbf{42.7}$ N</div>
+    </div>
+  </div>
+</div>
+
+<!-- F5 -->
+<div class="q-card">
+  <span class="q-label lE">F5</span>
+  <div class="q-text">An object of mass <strong>5 kg</strong> is suspended by two strings from a ceiling. String $T_1$ makes <strong>60°</strong> to the vertical; string $T_2$ makes <strong>30°</strong> to the vertical. A third string $T$ pulls the mass straight down.
+  Given that the system is in equilibrium, determine the tensions $T$, $T_1$ and $T_2$.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f5h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f5s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f5a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f5h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Key insight</div>There are two junction points. At the mass: $T = mg = 5 \times 9.8 = 49$ N. At the upper junction: three forces ($T_1$, $T_2$, $T$) — resolve horizontally and vertically.</div>
+    <div class="hstep"><div class="slabel">At upper junction</div>$T_1\sin60° = T_2\sin30°$ (horizontal), $T_1\cos60° + T_2\cos30° = T$ (vertical).</div>
+  </div>
+  <div class="panel p-steps" id="f5s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Step 1 — Find T</div>
+      At the mass, $T$ balances weight: $T = 5g = 5 \times 9.8 = 49$ N
+    </div>
+    <div class="hstep"><div class="slabel">Step 2 — At upper junction, horizontal</div>
+      $T_1\sin60° = T_2\sin30°$<br>
+      $T_1\dfrac{\sqrt{3}}{2} = T_2\dfrac{1}{2}$<br>
+      $T_1\sqrt{3} = T_2$ → $T_2 = \sqrt{3}\,T_1$ ...(1)
+    </div>
+    <div class="hstep"><div class="slabel">Step 3 — At upper junction, vertical</div>
+      $T_1\cos60° + T_2\cos30° = T = 49$<br>
+      $T_1\cdot\dfrac{1}{2} + \sqrt{3}\,T_1\cdot\dfrac{\sqrt{3}}{2} = 49$<br>
+      $\dfrac{T_1}{2} + \dfrac{3T_1}{2} = 49$<br>
+      $2T_1 = 49 \Rightarrow T_1 = 24.5$ N
+    </div>
+    <div class="hstep"><div class="slabel">Step 4 — Find $T_2$</div>
+      $T_2 = \sqrt{3}\times24.5 = 24.5\sqrt{3} \approx 42.4$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="f5a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">$T = 49$ N</div>
+      <div class="afinal">$T_1 = 24.5$ N</div>
+      <div class="afinal">$T_2 = 24.5\sqrt{3} \approx 42.4$ N</div>
+    </div>
+  </div>
+</div>
+
+<!-- F6 -->
+<div class="q-card">
+  <span class="q-label lF">F6</span>
+  <div class="q-text">A block of mass <strong>8 kg</strong> is pulled upwards along a rough plane inclined at <strong>30°</strong> by a force of <strong>95 N</strong>. The coefficient of friction between block and plane is <strong>0.4</strong>.
+    <ol class="q-parts">
+      <li>Draw a fully labelled diagram showing all forces on the block.</li>
+      <li>Calculate the acceleration of the block.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f6h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f6s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f6a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f6h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Four forces</div>Applied force 95 N (up the slope), weight $mg$ (vertically down), normal reaction $R$ (perpendicular to slope), friction $F$ (down the slope — opposing motion).</div>
+    <div class="hstep"><div class="slabel">Resolve perpendicular to slope</div>$R = mg\cos30°$. Then $F = \mu R = 0.4mg\cos30°$.</div>
+    <div class="hstep"><div class="slabel">Resolve along slope (up +ve)</div>$95 - mg\sin30° - F = ma$.</div>
+  </div>
+  <div class="panel p-steps" id="f6s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Normal reaction</div>
+      $R = mg\cos30° = 8\times9.8\times\cos30° = 78.4\times0.866 = 67.9$ N
+    </div>
+    <div class="hstep"><div class="slabel">Friction</div>
+      $F = \mu R = 0.4\times67.9 = 27.2$ N (down slope)
+    </div>
+    <div class="hstep"><div class="slabel">Net force along slope (up +ve)</div>
+      $F_{net} = 95 - mg\sin30° - F$<br>
+      $= 95 - 8\times9.8\times0.5 - 27.2$<br>
+      $= 95 - 39.2 - 27.2 = 28.6$ N
+    </div>
+    <div class="hstep"><div class="slabel">Acceleration</div>
+      $a = \dfrac{F_{net}}{m} = \dfrac{28.6}{8} = 3.575$ m s$^{-2}$
+    </div>
+  </div>
+  <div class="panel p-ans" id="f6a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">$a \approx \mathbf{3.58}$ m s$^{-2}$ up the slope</div>
+    </div>
+  </div>
+</div>
+
+<!-- F7 -->
+<div class="q-card">
+  <span class="q-label lG">F7</span>
+  <div class="q-text">A 3500 kg automobile travels <strong>down</strong> a 10° inclined road at 20 m s$^{-1}$. The driver jams the brakes, locking the wheels. The coefficient of friction between wheels and road is <strong>0.5</strong>. Determine:
+    <ol class="q-parts">
+      <li>The deceleration of the automobile after brakes are applied.</li>
+      <li>The distance the tyres would skid on the road (to rest).</li>
+      <li>The loss in kinetic energy if the car moves 5 m after brakes are applied.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('f7h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('f7s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('f7a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="f7h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Forces on incline (going down)</div>Weight component DOWN slope: $mg\sin10°$. Friction acts UP slope (opposing motion): $F=\mu mg\cos10°$. Net force along slope = $mg\sin10° - \mu mg\cos10°$ (decelerating).</div>
+    <div class="hstep"><div class="slabel">Note signs carefully</div>Car is going down. Friction opposes motion so acts up. Net deceleration $a = g(\mu\cos\theta - \sin\theta)$.</div>
+  </div>
+  <div class="panel p-steps" id="f7s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Deceleration</div>
+      $R = mg\cos10° = 3500\times9.8\times0.9848 = 33,730$ N<br>
+      $F_{friction} = 0.5\times33730 = 16,865$ N (up slope)<br>
+      $F_{gravity\parallel} = mg\sin10° = 3500\times9.8\times0.1736 = 5,958$ N (down slope)<br>
+      Net force (taking down as +ve): $F_{net} = 5958 - 16865 = -10,907$ N (i.e., up slope = deceleration)<br>
+      $a = \dfrac{10907}{3500} = 3.116$ m s$^{-2}$ (deceleration)
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Skid distance</div>
+      $u=20$, $v=0$, $a=-3.116$: $v^2=u^2+2as$<br>
+      $0 = 400 - 2(3.116)s$<br>
+      $s = \dfrac{400}{6.232} = 64.2$ m
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — KE loss over 5 m</div>
+      $v^2 = 20^2 - 2(3.116)(5) = 400 - 31.16 = 368.84$<br>
+      $\Delta KE = \tfrac{1}{2}m(u^2-v^2) = \tfrac{1}{2}(3500)(400-368.84) = 1750\times31.16 = 54{,}530$ J
+    </div>
+  </div>
+  <div class="panel p-ans" id="f7a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Deceleration $\approx \mathbf{3.12}$ m s$^{-2}$</div>
+      <div class="afinal">(ii) Skid distance $\approx \mathbf{64.2}$ m</div>
+      <div class="afinal">(iii) KE loss over 5 m $\approx \mathbf{54{,}530}$ J $= 54.53$ kJ</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-forces -->
+
+
+<!-- ══════════════════════════════════════════
+     2. KINEMATICS
+══════════════════════════════════════════ -->
+<div class="section" id="s-kin">
+<div class="sec-heading">📐 Kinematics</div>
+<div class="sec-desc">SUVAT equations · Velocity–time graphs · Describing motion · Displacement &amp; deceleration</div>
+
+<!-- K1 -->
+<div class="q-card">
+  <span class="q-label lA">K1</span>
+  <div class="q-text">An elevator starts from rest with a constant acceleration of <strong>2 m s$^{-2}$</strong> until it attains a speed of <strong>4 m s$^{-1}$</strong>. It then immediately decelerates at <strong>3 m s$^{-2}$</strong> until rest.
+    <ol class="q-parts">
+      <li>Calculate the total time for the journey.</li>
+      <li>Calculate the total distance travelled.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('k1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('k1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('k1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="k1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Two phases</div>Phase 1: $u=0$, $v=4$, $a=2$. Phase 2: $u=4$, $v=0$, $a=-3$. Use $v=u+at$ to find each time, $s=\frac{1}{2}(u+v)t$ for each distance.</div>
+  </div>
+  <div class="panel p-steps" id="k1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Phase 1 (accelerating)</div>
+      $v = u + at_1 \Rightarrow 4 = 0 + 2t_1 \Rightarrow t_1 = 2$ s<br>
+      $s_1 = \tfrac{1}{2}(0+4)(2) = 4$ m
+    </div>
+    <div class="hstep"><div class="slabel">Phase 2 (decelerating)</div>
+      $0 = 4 - 3t_2 \Rightarrow t_2 = \tfrac{4}{3}$ s<br>
+      $s_2 = \tfrac{1}{2}(4+0)\tfrac{4}{3} = \tfrac{8}{3}$ m
+    </div>
+    <div class="hstep"><div class="slabel">Totals</div>
+      $t = 2 + \tfrac{4}{3} = \tfrac{10}{3} \approx 3.33$ s<br>
+      $s = 4 + \tfrac{8}{3} = \tfrac{20}{3} \approx 6.67$ m
+    </div>
+  </div>
+  <div class="panel p-ans" id="k1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Total time $= \dfrac{10}{3} \approx \mathbf{3.33}$ s</div>
+      <div class="afinal">(ii) Total distance $= \dfrac{20}{3} \approx \mathbf{6.67}$ m</div>
+    </div>
+  </div>
+</div>
+
+<!-- K2 -->
+<div class="q-card">
+  <span class="q-label lB">K2</span>
+  <div class="q-text">A velocity–time graph shows a package falling from a plane with a parachute. Key values: rises from 0 to 50 m s$^{-1}$ from $t=0$ to $t=10$ s; falls from 50 to 15 m s$^{-1}$ from $t=10$ to $t=25$ s (parachute opens); remains at 15 m s$^{-1}$ from $t=25$ to $t=55$ s.
+    <ol class="q-parts">
+      <li>Describe the motion of the package as shown in the diagram.</li>
+      <li>Calculate the height that the package fell from (total distance).</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('k2h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('k2s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('k2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="k2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Area under v-t graph = distance</div>Three sections: (1) Triangle 0–10s, (2) Triangle 10–25s, (3) Rectangle 25–55s. Sum areas.</div>
+  </div>
+  <div class="panel p-steps" id="k2s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Describe motion</div>
+      0→10 s: Package accelerates from rest to 50 m s$^{-1}$ (free fall, increasing speed).<br>
+      10→25 s: Parachute opens; package decelerates from 50 to 15 m s$^{-1}$ (still falling but slowing).<br>
+      25→55 s: Package falls at constant velocity 15 m s$^{-1}$ (terminal velocity with parachute).
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Area = distance</div>
+      Section 1 (0–10 s), triangle: $s_1 = \tfrac{1}{2}(10)(50) = 250$ m<br>
+      Section 2 (10–25 s), trapezium: $s_2 = \tfrac{1}{2}(50+15)(15) = \tfrac{1}{2}(65)(15) = 487.5$ m<br>
+      Section 3 (25–55 s), rectangle: $s_3 = 15\times30 = 450$ m
+    </div>
+    <div class="hstep"><div class="slabel">Total height</div>
+      $H = 250 + 487.5 + 450 = 1187.5$ m
+    </div>
+  </div>
+  <div class="panel p-ans" id="k2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(ii) Total height $= \mathbf{1187.5}$ m</div>
+    </div>
+  </div>
+</div>
+
+<!-- K3 -->
+<div class="q-card">
+  <span class="q-label lC">K3</span>
+  <div class="q-text">A particle moves with constant acceleration. At $t=0$ its velocity is <strong>4 m s$^{-1}$</strong>; 5 seconds later its velocity is <strong>10 m s$^{-1}$</strong>.
+    <ol class="q-parts">
+      <li>Draw a velocity–time graph for the motion.</li>
+      <li>Calculate the acceleration.</li>
+      <li>Determine the displacement over $t=0$ to $t=5$ s.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('k3h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('k3s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('k3a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="k3h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">SUVAT</div>Use $a = \frac{v-u}{t}$. Displacement = area under v-t graph = trapezium.</div>
+  </div>
+  <div class="panel p-steps" id="k3s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Acceleration</div>$a = \dfrac{v-u}{t} = \dfrac{10-4}{5} = \dfrac{6}{5} = 1.2$ m s$^{-2}$</div>
+    <div class="hstep"><div class="slabel">Displacement</div>$s = \dfrac{1}{2}(u+v)t = \dfrac{1}{2}(4+10)(5) = \dfrac{1}{2}(14)(5) = 35$ m</div>
+  </div>
+  <div class="panel p-ans" id="k3a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(ii) $a = 1.2$ m s$^{-2}$</div>
+      <div class="afinal">(iii) $s = 35$ m</div>
+    </div>
+  </div>
+</div>
+
+<!-- K4 -->
+<div class="q-card">
+  <span class="q-label lD">K4</span>
+  <div class="q-text">A railway carriage (mass <strong>700 kg</strong>) ascends a smooth plane inclined at <strong>18°</strong> for <strong>30 m</strong>. Speed at start = <strong>18 m s$^{-1}$</strong>; speed at finish = <strong>10 m s$^{-1}$</strong>.
+    <ol class="q-parts">
+      <li>Calculate the deceleration of the carriage.</li>
+      <li>Calculate the tractive force.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('k4h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('k4s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('k4a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="k4h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Part (i)</div>Use $v^2 = u^2 + 2as$ with $u=18$, $v=10$, $s=30$.</div>
+    <div class="hstep"><div class="slabel">Part (ii)</div>Newton's 2nd along slope: $F_{tractive} - mg\sin18° = ma$. Smooth plane means no friction.</div>
+  </div>
+  <div class="panel p-steps" id="k4s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Deceleration</div>
+      $v^2 = u^2 + 2as$<br>
+      $100 = 324 + 2a(30)$<br>
+      $60a = 100-324 = -224$<br>
+      $a = -\dfrac{224}{60} = -3.73$ m s$^{-2}$ (deceleration of 3.73 m s$^{-2}$)
+    </div>
+    <div class="hstep"><div class="slabel">Tractive force</div>
+      Along slope (up +ve): $F - mg\sin18° = ma$<br>
+      $F = m(a + g\sin18°) = 700(-3.73 + 9.8\times0.309)$<br>
+      $= 700(-3.73 + 3.028) = 700(-0.702) = -491.4$ N<br>
+      Negative means force acts DOWN slope (braking) with magnitude 491.4 N.
+    </div>
+  </div>
+  <div class="panel p-ans" id="k4a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Deceleration $= 3.73$ m s$^{-2}$</div>
+      <div class="afinal">(ii) Tractive (braking) force $\approx \mathbf{491}$ N (down slope)</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-kin -->
+
+
+<!-- ══════════════════════════════════════════
+     3. NEWTON'S LAWS & CONNECTED PARTICLES
+══════════════════════════════════════════ -->
+<div class="section" id="s-newton">
+<div class="sec-heading">🚗 Newton's Laws &amp; Connected Particles</div>
+<div class="sec-desc">$F=ma$ · Inclined planes · Rough surfaces · Atwood's machine · Pulley systems</div>
+
+<!-- N1 -->
+<div class="q-card">
+  <span class="q-label lA">N1</span>
+  <div class="q-text">Car A (mass <strong>1500 kg</strong>) is on a rough horizontal road connected by a cable over a smooth pulley at the edge of a cliff to Car B (mass <strong>1000 kg</strong>) hanging freely. The driving force of Car A <em>just prevents it from moving towards the pulley</em>. Coefficient of friction $\mu = 0.6$.
+    <ol class="q-parts">
+      <li>Determine the value of the driving force.</li>
+      <li>If Car A's engine shuts off suddenly, calculate the acceleration of Car A.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('n1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('n1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('n1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="n1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Part (i) — Equilibrium</div>System not moving. For Car B: $T = 1000g$. For Car A: $D + F_{friction} = T$ (driving force + friction from road both oppose the pull toward cliff). Wait — friction opposes TENDENCY of motion. Car A tends to move TOWARD pulley (pulled by T), so friction acts AWAY from pulley. Driving force also acts away from pulley. So: $D + F = T$.</div>
+    <div class="hstep"><div class="slabel">Part (ii) — Engine off</div>Now: Tension $T$ pulls A toward cliff; friction still opposes motion (so away from cliff). Net force on system: $m_B g - \mu m_A g = (m_A + m_B)a$.</div>
+  </div>
+  <div class="panel p-steps" id="n1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i)</div>
+      Car B stationary: $T = m_B g = 1000\times9.8 = 9800$ N<br>
+      Car A: friction $= \mu m_A g = 0.6\times1500\times9.8 = 8820$ N (away from pulley)<br>
+      Equilibrium: $D + 8820 = 9800$<br>
+      $D = 9800 - 8820 = 980$ N
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Engine off, system accelerates</div>
+      Driving force gone. Net force (taking toward pulley as +ve):<br>
+      $F_{net} = m_B g - \mu m_A g = 9800 - 8820 = 980$ N<br>
+      Total mass $= 1500+1000 = 2500$ kg<br>
+      $a = \dfrac{980}{2500} = 0.392$ m s$^{-2}$ (Car A accelerates toward pulley/cliff)
+    </div>
+  </div>
+  <div class="panel p-ans" id="n1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Driving force $D = \mathbf{980}$ N</div>
+      <div class="afinal">(ii) Acceleration $= \mathbf{0.392}$ m s$^{-2}$</div>
+    </div>
+  </div>
+</div>
+
+<!-- N2 -->
+<div class="q-card">
+  <span class="q-label lB">N2</span>
+  <div class="q-text">Two particles of mass <strong>12 kg</strong> and <strong>8 kg</strong> are connected by a light inextensible string over a smooth pulley. Both start at rest, 100 m above the ground.
+    <ol class="q-parts">
+      <li>Determine the acceleration of the system.</li>
+      <li>Determine the tension in the string.</li>
+      <li>Find the distance each particle travels after 6 seconds.</li>
+      <li>Find the velocity of the 12 kg particle just before it hits the ground, if disconnected 6 seconds after release.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('n2h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('n2s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('n2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="n2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Atwood's machine</div>$a = \dfrac{(m_1 - m_2)g}{m_1+m_2}$. Tension: $T = \dfrac{2m_1m_2g}{m_1+m_2}$.</div>
+    <div class="hstep"><div class="slabel">After disconnection</div>At $t=6$ s, 12 kg has velocity $v = at$. After disconnect, 12 kg falls freely under gravity from that velocity.</div>
+  </div>
+  <div class="panel p-steps" id="n2s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Acceleration</div>
+      $a = \dfrac{(12-8)\times9.8}{12+8} = \dfrac{4\times9.8}{20} = \dfrac{39.2}{20} = 1.96$ m s$^{-2}$
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Tension</div>
+      For 8 kg: $T - 8g = 8a \Rightarrow T = 8(9.8+1.96) = 8\times11.76 = 94.08$ N<br>
+      Check with 12 kg: $12g - T = 12a \Rightarrow T = 12(9.8-1.96) = 12\times7.84 = 94.08$ ✓
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Distance in 6 s</div>
+      $s = \tfrac{1}{2}at^2 = \tfrac{1}{2}(1.96)(36) = 35.28$ m
+    </div>
+    <div class="hstep"><div class="slabel">Part (iv) — 12 kg hits ground</div>
+      At $t=6$ s: $v_0 = 1.96\times6 = 11.76$ m s$^{-1}$ downward; height above ground = $100-35.28=64.72$ m.<br>
+      After disconnect, free fall: $v^2 = v_0^2 + 2g h = (11.76)^2 + 2(9.8)(64.72) = 138.3 + 1268.5 = 1406.8$<br>
+      $v = \sqrt{1406.8} \approx 37.5$ m s$^{-1}$
+    </div>
+  </div>
+  <div class="panel p-ans" id="n2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) $a = 1.96$ m s$^{-2}$</div>
+      <div class="afinal">(ii) $T = 94.08$ N</div>
+      <div class="afinal">(iii) Distance $= 35.28$ m each</div>
+      <div class="afinal">(iv) Speed just before impact $\approx 37.5$ m s$^{-1}$</div>
+    </div>
+  </div>
+</div>
+
+<!-- N3 -->
+<div class="q-card">
+  <span class="q-label lC">N3</span>
+  <div class="q-text">A railway carriage (fully loaded, mass <strong>500 kg</strong>) climbs a plane inclined at <strong>20°</strong> for <strong>25 m</strong>. Speed at start = <strong>20 m s$^{-1}$</strong>; speed at end = <strong>12 m s$^{-1}$</strong>. Using a fully labelled diagram, calculate the frictional resistance of the surface.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('n3h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('n3s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('n3a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="n3h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Work-Energy Theorem</div>Work done by all forces = change in KE. Or find $a$ from SUVAT then use $F=ma$ to find net force, then resolve for friction.</div>
+  </div>
+  <div class="panel p-steps" id="n3s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Find acceleration</div>
+      $v^2 = u^2+2as$: $144 = 400+2a(25) \Rightarrow 50a = -256 \Rightarrow a = -5.12$ m s$^{-2}$
+    </div>
+    <div class="hstep"><div class="slabel">Newton's 2nd along slope</div>
+      Forces along slope (up +ve): $F_{engine} - mg\sin20° - F_{friction} = ma$<br>
+      But no engine force mentioned — carriage is moving under its own momentum only (engine off? or net force = $ma$).<br>
+      Taking up as +ve: $-mg\sin20° - F_r = ma$<br>
+      $F_r = -mg\sin20° - ma = -m(g\sin20° + a)$<br>
+      $= -500(9.8\times0.342 + (-5.12)) = -500(3.352-5.12) = -500(-1.768) = 884$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="n3a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Frictional resistance $\approx \mathbf{884}$ N</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-newton -->
+
+
+<!-- ══════════════════════════════════════════
+     4. PROJECTILES
+══════════════════════════════════════════ -->
+<div class="section" id="s-proj">
+<div class="sec-heading">🏹 Projectiles</div>
+<div class="sec-desc">Time of flight · Greatest height · Range · Trajectory equation · Finding angle</div>
+
+<!-- PR1 -->
+<div class="q-card">
+  <span class="q-label lA">PR1</span>
+  <div class="q-text">A particle is projected from a fixed point with velocity <strong>100 m s$^{-1}$</strong> at angle <strong>30°</strong> to the horizontal.
+    <ol class="q-parts">
+      <li>Calculate the GREATEST height reached.</li>
+      <li>Calculate the horizontal range.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('pr1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('pr1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('pr1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="pr1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Use standard formulae</div>Greatest height: $H = \dfrac{V^2\sin^2\theta}{2g}$. Range: $R = \dfrac{V^2\sin2\theta}{g}$.</div>
+  </div>
+  <div class="panel p-steps" id="pr1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Greatest height</div>
+      $H = \dfrac{V^2\sin^2\theta}{2g} = \dfrac{100^2\times\sin^230°}{2\times9.8} = \dfrac{10000\times0.25}{19.6} = \dfrac{2500}{19.6} = 127.6$ m
+    </div>
+    <div class="hstep"><div class="slabel">Horizontal range</div>
+      $R = \dfrac{V^2\sin2\theta}{g} = \dfrac{10000\times\sin60°}{9.8} = \dfrac{10000\times0.8660}{9.8} = \dfrac{8660}{9.8} = 883.7$ m
+    </div>
+  </div>
+  <div class="panel p-ans" id="pr1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Greatest height $\approx \mathbf{127.6}$ m</div>
+      <div class="afinal">(ii) Horizontal range $\approx \mathbf{883.7}$ m</div>
+    </div>
+  </div>
+</div>
+
+<!-- PR2 -->
+<div class="q-card">
+  <span class="q-label lB">PR2</span>
+  <div class="q-text">A golfer hits a golf ball (mass 46 g) from point P at angle <strong>35°</strong> to the horizontal. The ball lands at point Q, which is <strong>20 m</strong> from P on the same level.
+    <ol class="q-parts">
+      <li>Determine the initial speed of the golf ball at P.</li>
+      <li>Draw a labelled diagram showing the ball's position after 1 second — include vertical height and horizontal distance from P.</li>
+      <li>Calculate the speed and direction of the ball just before it hits the ground at Q.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('pr2h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('pr2s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('pr2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="pr2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Part (i)</div>Use range formula: $R = \dfrac{V^2\sin2\theta}{g}$. Solve for $V$.</div>
+    <div class="hstep"><div class="slabel">Part (iii)</div>$v_x = V\cos35°$ (unchanged). For $v_y$ at Q: use $v_y^2 = (V\sin35°)^2 - 2g\times0$ (lands at same level so $v_y = -V\sin35°$ in magnitude). Speed $= \sqrt{v_x^2+v_y^2} = V$ (symmetric projectile). Direction: $\tan^{-1}(v_y/v_x) = 35°$ below horizontal.</div>
+  </div>
+  <div class="panel p-steps" id="pr2s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Find V</div>
+      $R = \dfrac{V^2\sin70°}{9.8} = 20$<br>
+      $V^2 = \dfrac{20\times9.8}{\sin70°} = \dfrac{196}{0.9397} = 208.6$<br>
+      $V = \sqrt{208.6} = 14.44$ m s$^{-1}$
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Position at t=1 s</div>
+      $x = V\cos35°\times1 = 14.44\times0.8192 = 11.83$ m from P<br>
+      $y = V\sin35°\times1 - \tfrac{1}{2}g(1)^2 = 14.44\times0.5736 - 4.9 = 8.28 - 4.9 = 3.38$ m above ground
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Speed and direction at Q</div>
+      $v_x = 14.44\cos35° = 11.83$ m s$^{-1}$<br>
+      By symmetry (same level): $v_y = -V\sin35° = -8.28$ m s$^{-1}$ (downward)<br>
+      Speed $= \sqrt{11.83^2+8.28^2} = \sqrt{139.9+68.6} = \sqrt{208.5} = 14.44$ m s$^{-1}$<br>
+      Angle below horizontal $= \tan^{-1}(8.28/11.83) = \tan^{-1}(0.7)\approx 35°$
+    </div>
+  </div>
+  <div class="panel p-ans" id="pr2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) $V \approx \mathbf{14.44}$ m s$^{-1}$</div>
+      <div class="afinal">(ii) After 1 s: $x \approx 11.83$ m horizontal; $y \approx 3.38$ m above ground</div>
+      <div class="afinal">(iii) Speed at Q $\approx \mathbf{14.44}$ m s$^{-1}$ at $\mathbf{35°}$ below horizontal</div>
+    </div>
+  </div>
+</div>
+
+<!-- PR3 -->
+<div class="q-card">
+  <span class="q-label lC">PR3</span>
+  <div class="q-text">A particle is fired upward from point O at angle $\alpha$ to the horizontal with velocity <strong>40 m s$^{-1}$</strong>. It passes through point $(30, 45)$ where O is the origin.
+    <ol class="q-parts">
+      <li>Find the TWO possible values of $\alpha$.</li>
+      <li>Using the <em>larger</em> value of $\alpha$: calculate the time of flight.</li>
+      <li>Determine the maximum height reached.</li>
+      <li>Calculate the horizontal range.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('pr3h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('pr3s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('pr3a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="pr3h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Use trajectory equation</div>$y = x\tan\alpha - \dfrac{gx^2}{2V^2}(1+\tan^2\alpha)$. Substitute $x=30$, $y=45$, $V=40$, $g=9.8$.</div>
+    <div class="hstep"><div class="slabel">Let $t=\tan\alpha$</div>This gives a quadratic in $t$. Solve for two values of $\alpha$.</div>
+  </div>
+  <div class="panel p-steps" id="pr3s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Trajectory equation</div>
+      $y = x\tan\alpha - \dfrac{gx^2(1+\tan^2\alpha)}{2V^2}$<br>
+      $45 = 30\tan\alpha - \dfrac{9.8\times900(1+\tan^2\alpha)}{2\times1600}$<br>
+      $45 = 30\tan\alpha - \dfrac{8820}{3200}(1+\tan^2\alpha)$<br>
+      $45 = 30\tan\alpha - 2.756(1+\tan^2\alpha)$
+    </div>
+    <div class="hstep"><div class="slabel">Let $t=\tan\alpha$, rearrange</div>
+      $45 = 30t - 2.756 - 2.756t^2$<br>
+      $2.756t^2 - 30t + 47.756 = 0$<br>
+      $t = \dfrac{30 \pm \sqrt{900-4(2.756)(47.756)}}{2(2.756)} = \dfrac{30\pm\sqrt{900-526.5}}{5.512} = \dfrac{30\pm\sqrt{373.5}}{5.512}$<br>
+      $= \dfrac{30\pm19.33}{5.512}$<br>
+      $t_1 = \dfrac{49.33}{5.512} = 8.95$ → $\alpha_1 = \tan^{-1}(8.95) = 83.6°$<br>
+      $t_2 = \dfrac{10.67}{5.512} = 1.936$ → $\alpha_2 = \tan^{-1}(1.936) = 62.7°$
+    </div>
+    <div class="hstep"><div class="slabel">Parts (ii)–(iv): Larger angle $\alpha = 83.6°$</div>
+      Time of flight: $T = \dfrac{2V\sin83.6°}{9.8} = \dfrac{2\times40\times0.9934}{9.8} = \dfrac{79.47}{9.8} = 8.11$ s<br>
+      Max height: $H = \dfrac{V^2\sin^283.6°}{2g} = \dfrac{1600\times0.9868}{19.6} = \dfrac{1578.9}{19.6} = 80.6$ m<br>
+      Range: $R = \dfrac{V^2\sin(2\times83.6°)}{g} = \dfrac{1600\sin167.2°}{9.8} = \dfrac{1600\times0.2215}{9.8} = \dfrac{354.4}{9.8} = 36.2$ m
+    </div>
+  </div>
+  <div class="panel p-ans" id="pr3a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) $\alpha_1 \approx 83.6°$, $\alpha_2 \approx 62.7°$</div>
+      <div class="afinal">(ii) Time of flight (larger $\alpha$) $\approx \mathbf{8.11}$ s</div>
+      <div class="afinal">(iii) Max height $\approx \mathbf{80.6}$ m</div>
+      <div class="afinal">(iv) Range $\approx \mathbf{36.2}$ m</div>
+    </div>
+  </div>
+</div>
+
+<!-- PR4 -->
+<div class="q-card">
+  <span class="q-label lD">PR4</span>
+  <div class="q-text">A particle is projected upward at angle $\alpha$ to the horizontal with initial velocity $u$ m s$^{-1}$. It passes through point $P(x, y)$.
+  <br>Derive the equation of the particle's trajectory in terms of $x$, $y$, $u$, $\alpha$, and $g$.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('pr4h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('pr4s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('pr4a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="pr4h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Parametric approach</div>Write $x = ut\cos\alpha$ and $y = ut\sin\alpha - \frac{1}{2}gt^2$. Eliminate $t$ from these two equations.</div>
+  </div>
+  <div class="panel p-steps" id="pr4s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Horizontal</div>$x = ut\cos\alpha \Rightarrow t = \dfrac{x}{u\cos\alpha}$</div>
+    <div class="hstep"><div class="slabel">Substitute into vertical</div>
+      $y = u\sin\alpha\cdot\dfrac{x}{u\cos\alpha} - \dfrac{1}{2}g\left(\dfrac{x}{u\cos\alpha}\right)^2$<br>
+      $y = x\tan\alpha - \dfrac{gx^2}{2u^2\cos^2\alpha}$
+    </div>
+    <div class="hstep"><div class="slabel">Alternative form using $\sec^2\alpha = 1+\tan^2\alpha$</div>
+      $y = x\tan\alpha - \dfrac{gx^2}{2u^2}(1+\tan^2\alpha)$
+    </div>
+  </div>
+  <div class="panel p-ans" id="pr4a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">$y = x\tan\alpha - \dfrac{gx^2}{2u^2\cos^2\alpha}$</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-proj -->
+
+
+<!-- ══════════════════════════════════════════
+     5. WORK, ENERGY & POWER
+══════════════════════════════════════════ -->
+<div class="section" id="s-wep">
+<div class="sec-heading">⚡ Work, Energy &amp; Power</div>
+<div class="sec-desc">Work done · KE &amp; PE · Work-energy principle · Conservation of energy · Power = Fv</div>
+
+<!-- W1 -->
+<div class="q-card">
+  <span class="q-label lA">W1</span>
+  <div class="q-text">Every hour, a conveyor belt carries <strong>50,000 packages</strong> 75 m up a slope whose inclination is $\sin^{-1}(1/10)$. Each package weighs <strong>45 N</strong>. The power absorbed by friction is <strong>2000 W</strong>.
+    <ol class="q-parts">
+      <li>Calculate the work done to lift the 50,000 packages.</li>
+      <li>Calculate the power required to lift the packages.</li>
+      <li>Hence show that the total power output of the motor is <strong>6687.5 W</strong>.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('w1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('w1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('w1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="w1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Work done against gravity</div>Vertical height lifted $= 75\sin\theta = 75\times\frac{1}{10} = 7.5$ m. Work done per package $= 45\times7.5$ J. Total work $= $ that $\times$ 50000.</div>
+    <div class="hstep"><div class="slabel">Power for lifting</div>Power $= \dfrac{\text{Work done}}{\text{time in seconds}}$. One hour $= 3600$ s.</div>
+    <div class="hstep"><div class="slabel">Total power</div>Total power = lifting power + friction power loss.</div>
+  </div>
+  <div class="panel p-steps" id="w1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Work done</div>
+      Vertical height: $h = 75\times\tfrac{1}{10} = 7.5$ m<br>
+      Work per package: $W = 45\times7.5 = 337.5$ J<br>
+      Total work: $W_{total} = 337.5\times50000 = 16{,}875{,}000$ J $= 16.875$ MJ
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Power for lifting</div>
+      Time = 1 hour = 3600 s<br>
+      $P_{lift} = \dfrac{16{,}875{,}000}{3600} = 4687.5$ W
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Total power</div>
+      $P_{total} = P_{lift} + P_{friction} = 4687.5 + 2000 = 6687.5$ W ✓
+    </div>
+  </div>
+  <div class="panel p-ans" id="w1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Total work $= \mathbf{16.875}$ MJ</div>
+      <div class="afinal">(ii) Lifting power $= \mathbf{4687.5}$ W</div>
+      <div class="afinal">(iii) Total power $= 4687.5+2000 = \mathbf{6687.5}$ W ✓</div>
+    </div>
+  </div>
+</div>
+
+<!-- W2 -->
+<div class="q-card">
+  <span class="q-label lB">W2</span>
+  <div class="q-text">A car (mass <strong>1500 kg</strong>) travels along a straight horizontal road at constant speed <strong>27 m s$^{-1}$</strong>.
+    <ol class="q-parts">
+      <li>If engine power is <strong>13.5 kW</strong>, find the constant resistance to motion.</li>
+      <li>The car then travels at constant speed up a hill inclined at $\theta = \sin^{-1}(0.2)$. Speed is <strong>15 m s$^{-1}$</strong> and resistance is <strong>600 N</strong>. Determine the power of the engine.</li>
+      <li>Car descends the other side (inclined 4° to horizontal) for 240 m in 12 s. Engine works at constant 40 kW. Initial speed 22 m s$^{-1}$, final speed 28 m s$^{-1}$. Using the work-energy principle, find the resistance to motion.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('w2h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('w2s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('w2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="w2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Constant speed → net force = 0</div>Part (i): $P = Fv$, so $F = P/v$ = resistance. Part (ii): $F = mg\sin\theta + \text{resistance}$, $P=Fv$. Part (iii): Use Work-Energy: $W_{engine} + W_{gravity} - W_{friction} = \Delta KE$.</div>
+  </div>
+  <div class="panel p-steps" id="w2s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Horizontal constant speed</div>
+      $P = Fv \Rightarrow F = \dfrac{P}{v} = \dfrac{13500}{27} = 500$ N $=$ resistance
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Up hill at constant speed</div>
+      $\sin\theta = 0.2$, so driving force $F = mg\sin\theta + R_{friction} = 1500\times9.8\times0.2 + 600 = 2940+600 = 3540$ N<br>
+      $P = Fv = 3540\times15 = 53{,}100$ W $= 53.1$ kW
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Down hill, work-energy</div>
+      $W_{engine} = 40000\times12 = 480{,}000$ J<br>
+      $h = 240\sin4° = 240\times0.0698 = 16.75$ m (descending, so GPE $\to$ KE)<br>
+      $W_{gravity} = mgh = 1500\times9.8\times16.75 = 246{,}225$ J<br>
+      $\Delta KE = \tfrac{1}{2}(1500)(28^2-22^2) = 750(784-484) = 750\times300 = 225{,}000$ J<br>
+      Work-energy: $W_{engine} + W_{gravity} - W_{friction} = \Delta KE$<br>
+      $W_{friction} = 480000+246225-225000 = 501{,}225$ J<br>
+      Friction force $= \dfrac{501225}{240} = 2088.4$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="w2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) Resistance $= \mathbf{500}$ N</div>
+      <div class="afinal">(ii) Power $= \mathbf{53.1}$ kW</div>
+      <div class="afinal">(iii) Resistance $\approx \mathbf{2088}$ N</div>
+    </div>
+  </div>
+</div>
+
+<!-- W3 -->
+<div class="q-card">
+  <span class="q-label lC">W3</span>
+  <div class="q-text">A ball of mass <strong>6 kg</strong> is dropped from the top of a cliff of height <strong>15 m</strong>.
+    <ol class="q-parts">
+      <li>Calculate the potential energy when the ball has fallen <strong>5 m</strong> from the top.</li>
+      <li>Determine the velocity of the ball when it hits the ground.</li>
+      <li>Prove that, in a closed system, the change in velocity of an object in free fall is independent of its mass.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('w3h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('w3s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('w3a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="w3h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Part (i)</div>After falling 5 m, ball is 10 m above ground. $PE = mgh = 6\times9.8\times10$.</div>
+    <div class="hstep"><div class="slabel">Part (ii)</div>Conservation of energy (no friction): $\frac{1}{2}mv^2 = mgh$, so $v = \sqrt{2gh}$.</div>
+    <div class="hstep"><div class="slabel">Part (iii)</div>$v^2 = u^2+2as$ where $a=g$. Change in velocity: $v-u=at=g\cdot t$ — mass cancels from $F=ma$ since $F=mg$.</div>
+  </div>
+  <div class="panel p-steps" id="w3s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — PE after 5 m fall</div>
+      Remaining height above ground $= 15-5 = 10$ m<br>
+      $PE = mgh = 6\times9.8\times10 = 588$ J
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Velocity at ground</div>
+      $\tfrac{1}{2}mv^2 = mgh \Rightarrow v = \sqrt{2\times9.8\times15} = \sqrt{294} = 17.15$ m s$^{-1}$
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Proof (mass-independent)</div>
+      Net force in free fall: $F = mg$<br>
+      By Newton's 2nd: $ma = mg \Rightarrow a = g$ (mass cancels)<br>
+      From $v = u + at$: $\Delta v = v-u = gt$ — depends only on $g$ and $t$, not mass. ✓<br>
+      Alternatively: $v^2 = u^2+2gs$ — again, no mass term.
+    </div>
+  </div>
+  <div class="panel p-ans" id="w3a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) $PE = \mathbf{588}$ J</div>
+      <div class="afinal">(ii) $v = \sqrt{294} \approx \mathbf{17.1}$ m s$^{-1}$</div>
+      <div class="afinal">(iii) Since $a=g$ (mass cancels), $\Delta v = gt$ is independent of mass. ✓</div>
+    </div>
+  </div>
+</div>
+
+<!-- W4 -->
+<div class="q-card">
+  <span class="q-label lD">W4</span>
+  <div class="q-text">A car (mass <strong>1400 kg</strong>) travelling at <strong>40 m s$^{-1}$</strong> has its speed reduced to <strong>15 m s$^{-1}$</strong> by a constant braking force over a distance of <strong>60 m</strong>.
+  <br>Calculate the net work done on the car. Include the value of the braking force in your response.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('w4h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('w4s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('w4a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="w4h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Work-energy theorem</div>Net work $= \Delta KE = \frac{1}{2}m(v^2-u^2)$. Also, net work $= F\times d$, so find $F$.</div>
+  </div>
+  <div class="panel p-steps" id="w4s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Change in KE</div>
+      $\Delta KE = \tfrac{1}{2}(1400)(15^2-40^2) = 700(225-1600) = 700(-1375) = -962{,}500$ J
+    </div>
+    <div class="hstep"><div class="slabel">Braking force</div>
+      $W = F\cdot d \Rightarrow -962500 = -F\times60 \Rightarrow F = \dfrac{962500}{60} = 16{,}041.7$ N
+    </div>
+  </div>
+  <div class="panel p-ans" id="w4a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Net work $= \mathbf{-962{,}500}$ J (energy removed)</div>
+      <div class="afinal">Braking force $\approx \mathbf{16{,}042}$ N</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-wep -->
+
+
+<!-- ══════════════════════════════════════════
+     6. MOMENTUM & IMPULSE
+══════════════════════════════════════════ -->
+<div class="section" id="s-mom">
+<div class="sec-heading">💥 Momentum &amp; Impulse</div>
+<div class="sec-desc">Conservation of momentum · Perfectly inelastic collisions · Impulse = change in momentum</div>
+
+<!-- M1 -->
+<div class="q-card">
+  <span class="q-label lA">M1</span>
+  <div class="q-text">
+    <ol class="q-parts">
+      <li>Outline the principle of conservation of linear momentum.</li>
+    </ol>
+    A vehicle (mass <strong>6000 kg</strong>, velocity <strong>2.5 m s$^{-1}$</strong>) collides with another vehicle (mass <strong>2000 kg</strong>, velocity <strong>1.3 m s$^{-1}$</strong>) moving in the same direction. After impact they fuse and move as one.
+    <ol class="q-parts" start="2">
+      <li>Calculate the kinetic energy after impact.</li>
+      <li>Find the distance to bring the fused vehicle to rest if a braking force of <strong>1000 N</strong> is applied immediately.</li>
+      <li>Find the time required to bring it to rest.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('m1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('m1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('m1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="m1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Perfectly inelastic</div>$(m_1+m_2)v = m_1u_1+m_2u_2$. Find $v$, then $KE = \frac{1}{2}(m_1+m_2)v^2$.</div>
+    <div class="hstep"><div class="slabel">Braking</div>$F=ma$ gives deceleration. Then use SUVAT: $v^2=u^2+2as$ for distance; $v=u+at$ for time.</div>
+  </div>
+  <div class="panel p-steps" id="m1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Principle</div>
+      In a closed system (no external forces), the total linear momentum before a collision equals the total linear momentum after: $\sum m_iu_i = \sum m_iv_i$.
+    </div>
+    <div class="hstep"><div class="slabel">Velocity after collision</div>
+      $(6000+2000)v = 6000(2.5)+2000(1.3)$<br>
+      $8000v = 15000+2600 = 17600$<br>
+      $v = 2.2$ m s$^{-1}$
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — KE after</div>
+      $KE = \tfrac{1}{2}(8000)(2.2)^2 = 4000\times4.84 = 19{,}360$ J
+    </div>
+    <div class="hstep"><div class="slabel">Parts (iii) &amp; (iv) — Braking</div>
+      $a = \dfrac{-F}{m} = \dfrac{-1000}{8000} = -0.125$ m s$^{-2}$<br>
+      Distance: $0 = (2.2)^2+2(-0.125)s \Rightarrow s = \dfrac{4.84}{0.25} = 19.36$ m<br>
+      Time: $0 = 2.2-0.125t \Rightarrow t = \dfrac{2.2}{0.125} = 17.6$ s
+    </div>
+  </div>
+  <div class="panel p-ans" id="m1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Velocity after $= \mathbf{2.2}$ m s$^{-1}$</div>
+      <div class="afinal">(ii) KE after $= \mathbf{19{,}360}$ J</div>
+      <div class="afinal">(iii) Distance to rest $= \mathbf{19.36}$ m</div>
+      <div class="afinal">(iv) Time to rest $= \mathbf{17.6}$ s</div>
+    </div>
+  </div>
+</div>
+
+<!-- M2 -->
+<div class="q-card">
+  <span class="q-label lB">M2</span>
+  <div class="q-text">Two particles P and Q move towards each other in a straight line. Both come to rest immediately after colliding. Mass of P = <strong>2 kg</strong>, mass of Q = <strong>$x$ kg</strong>; speeds before impact: P at <strong>5 m s$^{-1}$</strong>, Q at <strong>6 m s$^{-1}$</strong>.
+    <ol class="q-parts">
+      <li>Determine $x$, the mass of Q.</li>
+    </ol>
+    If instead, after the collision both particles move with speed <strong>3 m s$^{-1}$</strong> to the left, determine the possible value(s) of $x$.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('m2h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('m2s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('m2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="m2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Moving toward each other</div>Take right as +ve. P moves right (+5), Q moves left (−6). Both rest after: total momentum after = 0. So total momentum before = 0.</div>
+    <div class="hstep"><div class="slabel">Second scenario</div>After: both move left at 3 m s$^{-1}$ → combined momentum = $-(2+x)\times3$... but they separate, so: $2(+5)+x(-6) = (2+x)(-3)$.</div>
+  </div>
+  <div class="panel p-steps" id="m2s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Both at rest after</div>
+      $2(+5) + x(-6) = 0$<br>
+      $10 - 6x = 0 \Rightarrow x = \dfrac{10}{6} = \dfrac{5}{3}$ kg
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Both move 3 m s$^{-1}$ left after</div>
+      After momentum = $(2+x)(-3)$ if they fuse, or $2(-3)+x(-3) = -3(2+x)$<br>
+      $10-6x = -3(2+x) = -6-3x$<br>
+      $10+6 = 6x-3x \Rightarrow 16 = 3x \Rightarrow x = \dfrac{16}{3} \approx 5.33$ kg
+    </div>
+  </div>
+  <div class="panel p-ans" id="m2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) $x = \dfrac{5}{3} \approx \mathbf{1.67}$ kg</div>
+      <div class="afinal">(iii) $x = \dfrac{16}{3} \approx \mathbf{5.33}$ kg</div>
+    </div>
+  </div>
+</div>
+
+<!-- M3 -->
+<div class="q-card">
+  <span class="q-label lC">M3</span>
+  <div class="q-text">A golf ball collides with a stationary rock at point Q. After impact, the golf ball rebounds at <strong>3 m s$^{-1}$</strong> and the rock moves forward at <strong>4 m s$^{-1}$</strong>.
+    <ol class="q-parts">
+      <li>Define: (a) Impulse; (b) Momentum.</li>
+      <li>State ONE assumption about the golf ball and rock.</li>
+      <li>Determine the mass of the rock, given the golf ball has mass 46 g and initial speed found in PR2 (≈14.44 m s$^{-1}$).</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('m3h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('m3s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('m3a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="m3h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Conservation</div>$m_{ball}u_{ball} + m_{rock}(0) = m_{ball}(-3) + m_{rock}(4)$. Take initial direction as +ve; ball rebounds so $v_{ball} = -3$ m s$^{-1}$.</div>
+  </div>
+  <div class="panel p-steps" id="m3s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — Definitions</div>
+      <strong>Impulse:</strong> The product of force and the time for which it acts; equals the change in momentum. $J = Ft = \Delta p$.<br>
+      <strong>Momentum:</strong> The product of an object's mass and velocity. $p = mv$.
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Assumption</div>
+      The system is closed (no external horizontal forces act during the collision).
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Mass of rock</div>
+      $m_{ball} = 0.046$ kg, $u = 14.44$ m s$^{-1}$, $v_{ball} = -3$ m s$^{-1}$, $v_{rock} = 4$ m s$^{-1}$<br>
+      Conservation: $0.046(14.44) + 0 = 0.046(-3) + m_{rock}(4)$<br>
+      $0.6642 = -0.138 + 4m_{rock}$<br>
+      $4m_{rock} = 0.8022$<br>
+      $m_{rock} = 0.2006$ kg $\approx 200.6$ g
+    </div>
+  </div>
+  <div class="panel p-ans" id="m3a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Mass of rock $\approx \mathbf{0.201}$ kg (200.6 g)</div>
+    </div>
+  </div>
+</div>
+
+<!-- M4 -->
+<div class="q-card">
+  <span class="q-label lD">M4</span>
+  <div class="q-text">A car of mass <strong>1800 kg</strong> travelling at <strong>20 m s$^{-1}$</strong> strikes a smooth vertical wall horizontally, then bounces off at <strong>14 m s$^{-1}$</strong>.
+  Calculate the impulse of the car.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('m4h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('m4s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('m4a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="m4h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Sign convention</div>Take initial direction (toward wall) as +ve. Before: $v=+20$; after: $v=-14$ (rebounds). Impulse $= m(v_{after}-v_{before})$.</div>
+  </div>
+  <div class="panel p-steps" id="m4s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Impulse</div>
+      $J = m(v-u) = 1800(-14-20) = 1800\times(-34) = -61{,}200$ N·s<br>
+      Magnitude: $|J| = 61{,}200$ N·s (directed away from wall)
+    </div>
+  </div>
+  <div class="panel p-ans" id="m4a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Impulse $= \mathbf{61{,}200}$ N·s (directed away from wall)</div>
+    </div>
+  </div>
+</div>
+
+<!-- M5 -->
+<div class="q-card">
+  <span class="q-label lE">M5</span>
+  <div class="q-text">A ball of mass <strong>1.2 kg</strong> strikes a smooth vertical wall horizontally at <strong>8 m s$^{-1}$</strong> and bounces off at <strong>6 m s$^{-1}$</strong>. Calculate the impulse of the ball.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('m5h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('m5s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('m5a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="m5h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Same as M4</div>Take toward wall as +ve. After bounce: $v = -6$. $J = m(v-u)$.</div>
+  </div>
+  <div class="panel p-steps" id="m5s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Impulse</div>
+      $J = m(v-u) = 1.2(-6-8) = 1.2\times(-14) = -16.8$ N·s<br>
+      Magnitude: $16.8$ N·s away from wall.
+    </div>
+  </div>
+  <div class="panel p-ans" id="m5a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Impulse $= \mathbf{16.8}$ N·s (away from wall)</div>
+    </div>
+  </div>
+</div>
+
+<!-- M6 -->
+<div class="q-card">
+  <span class="q-label lF">M6</span>
+  <div class="q-text">Determine the braking force needed to bring a <strong>1200 kg</strong> car travelling at <strong>20 m s$^{-1}$</strong> to a stop in <strong>6 seconds</strong>.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('m6h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('m6s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('m6a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="m6h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Impulse-momentum</div>$Ft = \Delta p = m(v-u)$. Or find $a$ then $F=ma$.</div>
+  </div>
+  <div class="panel p-steps" id="m6s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Method 1: SUVAT + Newton</div>
+      $a = \dfrac{v-u}{t} = \dfrac{0-20}{6} = -\dfrac{10}{3}$ m s$^{-2}$<br>
+      $F = ma = 1200\times\dfrac{10}{3} = 4000$ N
+    </div>
+    <div class="hstep"><div class="slabel">Method 2: Impulse</div>
+      $Ft = m(v-u) = 1200(0-20) = -24000$<br>
+      $F\times6 = 24000 \Rightarrow F = 4000$ N ✓
+    </div>
+  </div>
+  <div class="panel p-ans" id="m6a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">Braking force $= \mathbf{4000}$ N</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-mom -->
+
+
+<!-- ══════════════════════════════════════════
+     7. DIFFERENTIAL EQUATIONS (Linear Motion)
+══════════════════════════════════════════ -->
+<div class="section" id="s-ode">
+<div class="sec-heading">∫ Differential Equations in Mechanics</div>
+<div class="sec-desc">Formulating $ma = F(v)$ · Separable ODEs · Variable resistance / force · Finding terminal velocity</div>
+
+<!-- ODE1 -->
+<div class="q-card">
+  <span class="q-label lA">ODE1</span>
+  <div class="q-text">A vehicle of mass <strong>1200 kg</strong> starts from rest on a horizontal road. Driving force = <strong>800 N</strong>; resistance = <strong>200$v$ N</strong> (proportional to velocity $v$).
+    <ol class="q-parts">
+      <li>Derive a differential equation to model the motion.</li>
+      <li>Hence show that $v = 4\!\left(1-e^{-t/6}\right)$.</li>
+      <li>Determine the time taken for the vehicle to reach 3 m s$^{-1}$.</li>
+    </ol>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('ode1h')">💡 Hint</button>
+    <button class="btn btn-steps" onclick="tp('ode1s')">📋 Steps</button>
+    <button class="btn btn-ans" onclick="tp('ode1a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="ode1h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Part (i) — Newton's 2nd</div>$ma = F_{net} = 800 - 200v$. So $1200\dfrac{dv}{dt} = 800-200v$.</div>
+    <div class="hstep"><div class="slabel">Part (ii) — Separate variables</div>$\dfrac{dv}{4-v} = \dfrac{1}{6}dt$ (after simplifying). Integrate both sides. Apply IC $v=0$ at $t=0$.</div>
+    <div class="hstep"><div class="slabel">Terminal velocity</div>As $t\to\infty$, $e^{-t/6}\to0$, so $v\to4$ m s$^{-1}$ (terminal velocity).</div>
+  </div>
+  <div class="panel p-steps" id="ode1s">
+    <div class="p-head">📋 Full Steps</div>
+    <div class="hstep"><div class="slabel">Part (i) — ODE</div>
+      $F_{net} = 800 - 200v$<br>
+      $ma = 1200\dfrac{dv}{dt} = 800-200v$<br>
+      $\dfrac{dv}{dt} = \dfrac{800-200v}{1200} = \dfrac{4-v}{6}$
+    </div>
+    <div class="hstep"><div class="slabel">Part (ii) — Solve by separation</div>
+      $\dfrac{dv}{4-v} = \dfrac{dt}{6}$<br>
+      $\int\dfrac{dv}{4-v} = \int\dfrac{dt}{6}$<br>
+      $-\ln|4-v| = \dfrac{t}{6} + C$<br>
+      At $t=0$, $v=0$: $-\ln4 = C$<br>
+      $-\ln(4-v) = \dfrac{t}{6} - \ln4$<br>
+      $\ln\dfrac{4}{4-v} = \dfrac{t}{6}$<br>
+      $\dfrac{4}{4-v} = e^{t/6}$<br>
+      $4-v = 4e^{-t/6}$<br>
+      $v = 4(1-e^{-t/6})$ ✓
+    </div>
+    <div class="hstep"><div class="slabel">Part (iii) — Time for v = 3</div>
+      $3 = 4(1-e^{-t/6})$<br>
+      $\dfrac{3}{4} = 1-e^{-t/6}$<br>
+      $e^{-t/6} = \dfrac{1}{4}$<br>
+      $-\dfrac{t}{6} = \ln\dfrac{1}{4} = -\ln4$<br>
+      $t = 6\ln4 = 6\times1.3863 = 8.318$ s
+    </div>
+  </div>
+  <div class="panel p-ans" id="ode1a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <div class="afinal">(i) $1200\dfrac{dv}{dt} = 800-200v$</div>
+      <div class="afinal">(iii) $t = 6\ln4 \approx \mathbf{8.32}$ s</div>
+      <div class="afinal">Terminal velocity $= 4$ m s$^{-1}$</div>
+    </div>
+  </div>
+</div>
+
+<!-- ODE2 -->
+<div class="q-card">
+  <span class="q-label lB">ODE2</span>
+  <div class="q-text">A car (mass <strong>1500 kg</strong>) has constant power engine and travels at constant speed. State the condition for constant speed, then:
+  <br><br>A particle moving in a straight line has $a = v\dfrac{dv}{dx}$ where resistance is $kv^2$.
+  <br><br>More directly: outline the principle of conservation of <strong>energy</strong> and the principle of conservation of <strong>linear momentum</strong>.
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-hint" onclick="tp('ode2h')">💡 Hint</button>
+    <button class="btn btn-ans" onclick="tp('ode2a')">✔ Answer</button>
+  </div>
+  <div class="panel p-hint" id="ode2h">
+    <div class="p-head">💡 Hints</div>
+    <div class="hstep"><div class="slabel">Principles</div>These are definition questions — know the exact wording for CAPE exams.</div>
+  </div>
+  <div class="panel p-ans" id="ode2a">
+    <div class="p-head">✔ Answer</div>
+    <div class="abox">
+      <strong>Conservation of Energy:</strong> The total energy of a closed system remains constant — energy cannot be created or destroyed, only converted from one form to another. (Mechanical form: $KE + PE = \text{constant}$ when no non-conservative forces act.)
+      <br><br>
+      <strong>Conservation of Linear Momentum:</strong> In a closed system where no external forces act, the total linear momentum before a collision (or interaction) is equal to the total linear momentum after.
+      <br><br>
+      <strong>Constant speed condition:</strong> Net force = 0, i.e., driving/tractive force = total resistance.
+      <div class="afinal">$F_{drive} = F_{resistance}$ (for constant speed)</div>
+      <div class="afinal">$P = Fv$ (power = driving force × velocity)</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /s-ode -->
+
+</main>
+
+<footer>⚡ CAPE Applied Mathematics Unit 2 · Module 3 · Particle Mechanics · Past Paper Question Bank · Clarence Fitzroy Bryant College · St. Kitts &amp; Nevis</footer>
+
+<script>
+function tp(id){document.getElementById(id).classList.toggle('open');}
+function switchSec(btn,id){
+  document.querySelectorAll('.tnav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openFSModal(){document.getElementById('fsModal').classList.add('open');}
+function closeFSModal(){document.getElementById('fsModal').classList.remove('open');}
+document.getElementById('fsModal').addEventListener('click',function(e){if(e.target===this)closeFSModal();});
+function switchMTab(btn,tabId){
+  document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+</script>
+</body>
+</html>
